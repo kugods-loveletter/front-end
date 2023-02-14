@@ -2,6 +2,8 @@ import 'package:daily_carbon/components/auth_text_field.dart';
 import 'package:daily_carbon/pages/signup_page.dart';
 import 'package:flutter/material.dart';
 
+import 'home_page.dart';
+
 class LoginPage extends StatelessWidget {
   final formKey = GlobalKey<FormState>();
 
@@ -100,8 +102,12 @@ class LoginPage extends StatelessWidget {
       onTap: () {
         if (formKey.currentState!.validate()) {
           formKey.currentState!.save();
-          print("ID: ${id}");
-          print("password: ${password}");
+          // 서버로 로그인 Post 요청
+          // 로그인 성공시에 메인 페이지로 이동
+          Navigator.pushReplacement(
+            context,
+            MaterialPageRoute(builder: (context) => HomePage()),
+          );
         }
       },
     );

@@ -6,6 +6,7 @@ class AuthTextField extends StatelessWidget {
   final FormFieldSetter onSaved;
   final FormFieldValidator validator;
   final bool isPassword;
+  final TextEditingController? textEditingController;
 
   const AuthTextField({
     required this.prefixIcon,
@@ -13,6 +14,7 @@ class AuthTextField extends StatelessWidget {
     required this.onSaved,
     required this.validator,
     this.isPassword = false,
+    this.textEditingController,
   });
 
   @override
@@ -32,6 +34,7 @@ class AuthTextField extends StatelessWidget {
           ),
         ),
         onSaved: onSaved,
+        controller: textEditingController,
         validator: validator,
       ),
     );
