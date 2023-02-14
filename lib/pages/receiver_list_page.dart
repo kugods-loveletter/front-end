@@ -7,16 +7,23 @@ class ReceiverListPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        body: SafeArea(
-      child: Column(
-        children: [
-          _buildHeader(),
-          ReceiverProfileTile(),
-          ReceiverProfileTile(),
-          ReceiverProfileTile(),
-        ],
+      body: SafeArea(
+        child: Column(
+          children: [
+            _buildHeader(),
+            Expanded(
+              child: ListView(
+                children: [
+                  ReceiverProfileTile(),
+                  ReceiverProfileTile(),
+                  ReceiverProfileTile(),
+                ],
+              ),
+            ),
+          ],
+        ),
       ),
-    ));
+    );
   }
 
   Widget _buildHeader() {

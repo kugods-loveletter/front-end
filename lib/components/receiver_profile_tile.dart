@@ -1,16 +1,13 @@
 import 'package:flutter/material.dart';
 
 class ReceiverProfileTile extends StatelessWidget {
-  const ReceiverProfileTile({Key? key}) : super(key: key);
-
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.only(bottom: 20.0),
+      padding: const EdgeInsets.only(left: 20, right: 20, bottom: 20.0),
       child: Material(
         elevation: 4,
         child: Container(
-          width: MediaQuery.of(context).size.width * 0.84,
           height: 100,
           child: Row(
             children: [
