@@ -1,8 +1,7 @@
 import 'package:daily_carbon/components/auth_text_field.dart';
+import 'package:daily_carbon/pages/bottom_navigation.dart';
 import 'package:daily_carbon/pages/signup_page.dart';
 import 'package:flutter/material.dart';
-
-import 'home_page.dart';
 
 class LoginPage extends StatelessWidget {
   final formKey = GlobalKey<FormState>();
@@ -106,7 +105,7 @@ class LoginPage extends StatelessWidget {
           // 로그인 성공시에 메인 페이지로 이동
           Navigator.pushReplacement(
             context,
-            MaterialPageRoute(builder: (context) => HomePage()),
+            MaterialPageRoute(builder: (context) => BottomNavigation()),
           );
         }
       },
