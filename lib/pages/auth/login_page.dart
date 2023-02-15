@@ -1,6 +1,6 @@
-import 'package:daily_carbon/components/auth_text_field.dart';
+import 'package:daily_carbon/components/auth/auth_text_field.dart';
+import 'package:daily_carbon/pages/auth/signup_page.dart';
 import 'package:daily_carbon/pages/bottom_navigation.dart';
-import 'package:daily_carbon/pages/signup_page.dart';
 import 'package:flutter/material.dart';
 
 class LoginPage extends StatelessWidget {

@@ -1,4 +1,4 @@
-import 'package:daily_carbon/components/receiver_profile_tile.dart';
+import 'package:daily_carbon/components/send_letter/receiver_profile_tile.dart';
 import 'package:flutter/material.dart';
 
 class ReceiverListPage extends StatelessWidget {

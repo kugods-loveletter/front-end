@@ -1,6 +1,6 @@
 import 'package:daily_carbon/pages/home_page.dart';
-import 'package:daily_carbon/pages/receiver_list_page.dart';
-import 'package:daily_carbon/pages/user_info_page.dart';
+import 'package:daily_carbon/pages/send_letter/receiver_list_page.dart';
+import 'package:daily_carbon/pages/user_profile/user_info_page.dart';
 import 'package:flutter/material.dart';
 
 class BottomNavigation extends StatefulWidget {

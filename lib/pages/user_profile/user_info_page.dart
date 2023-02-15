@@ -1,5 +1,5 @@
-import 'package:daily_carbon/components/receiver_profile_tile.dart';
-import 'package:daily_carbon/pages/received_letter_list_page.dart';
+import 'package:daily_carbon/components/send_letter/receiver_profile_tile.dart';
+import 'package:daily_carbon/pages/user_profile/received_letter_list_page.dart';
 import 'package:flutter/material.dart';
 
 import 'sent_letter_list_page.dart';
