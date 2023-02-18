@@ -1,3 +1,4 @@
+import 'package:daily_carbon/pages/send_letter/receiver_info_page.dart';
 import 'package:flutter/material.dart';
 
 class ReceiverProfileTile extends StatelessWidget {
@@ -5,9 +6,20 @@ class ReceiverProfileTile extends StatelessWidget {
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.only(left: 20, right: 20, bottom: 20.0),
-      child: Material(
-        elevation: 4,
+      child: InkWell(
         child: Container(
+          decoration: BoxDecoration(
+            color: Colors.white,
+            borderRadius: BorderRadius.circular(20),
+            boxShadow: [
+              BoxShadow(
+                color: Colors.grey,
+                spreadRadius: 1,
+                blurRadius: 1,
+                offset: Offset(0, 1),
+              ),
+            ],
+          ),
           height: 100,
           child: Row(
             children: [
@@ -40,6 +52,12 @@ class ReceiverProfileTile extends StatelessWidget {
             ],
           ),
         ),
+        onTap: () {
+          Navigator.push(
+            context,
+            MaterialPageRoute(builder: (context) => ReceiverInfoPage()),
+          );
+        },
       ),
     );
   }
