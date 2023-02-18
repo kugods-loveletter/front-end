@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../components/auth_text_field.dart';
+import '../../components/auth/auth_text_field.dart';
 
 class SignupPage extends StatelessWidget {
   final formKey = GlobalKey<FormState>();

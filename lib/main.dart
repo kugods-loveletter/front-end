@@ -1,4 +1,4 @@
-import 'package:daily_carbon/pages/login_page.dart';
+import 'package:daily_carbon/pages/bottom_navigation.dart';
 import 'package:flutter/material.dart';
 
 void main() {
@@ -13,7 +13,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       home: Scaffold(
-        body: LoginPage(),
+        body: BottomNavigation(),
       ),
     );
   }
