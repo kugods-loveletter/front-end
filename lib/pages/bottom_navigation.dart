@@ -1,3 +1,4 @@
+import 'package:daily_carbon/pages/community/community_main_page.dart';
 import 'package:daily_carbon/pages/home_page.dart';
 import 'package:daily_carbon/pages/send_letter/receiver_list_page.dart';
 import 'package:daily_carbon/pages/user_profile/user_info_page.dart';
@@ -27,6 +28,8 @@ class _BottomNavigationState extends State<BottomNavigation> {
         return ReceiverListPage();
       case 2:
         return UserInfoPage();
+      case 3:
+        return CommunityMainPage();
       default:
         return Container();
     }
@@ -37,6 +40,7 @@ class _BottomNavigationState extends State<BottomNavigation> {
     return Scaffold(
       body: _buildPage(_selectedIndex),
       bottomNavigationBar: BottomNavigationBar(
+        type: BottomNavigationBarType.fixed,
         items: [
           BottomNavigationBarItem(
             icon: Icon(Icons.home_outlined),
@@ -49,6 +53,10 @@ class _BottomNavigationState extends State<BottomNavigation> {
           BottomNavigationBarItem(
             icon: Icon(Icons.person_outline),
             label: "My Profile",
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.chat),
+            label: "Community",
           ),
         ],
         currentIndex: _selectedIndex,
