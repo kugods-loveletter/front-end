@@ -13,6 +13,7 @@ class UserInfoPage extends StatelessWidget {
       body: SafeArea(
         child: Column(
           children: [
+            SizedBox(height: 20),
             ReceiverProfileTile(),
             _buildSentLetterButton(context),
             SizedBox(height: 10),
@@ -30,6 +31,7 @@ class UserInfoPage extends StatelessWidget {
         child: Container(
           height: 60,
           decoration: BoxDecoration(
+            color: Colors.white,
             border: Border.all(),
             borderRadius: BorderRadius.circular(10),
           ),
@@ -59,6 +61,7 @@ class UserInfoPage extends StatelessWidget {
         child: Container(
           height: 60,
           decoration: BoxDecoration(
+            color: Colors.white,
             border: Border.all(),
             borderRadius: BorderRadius.circular(10),
           ),
