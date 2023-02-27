@@ -14,7 +14,7 @@ class UserInfoPage extends StatelessWidget {
         child: Column(
           children: [
             SizedBox(height: 20),
-            ReceiverProfileTile(),
+            //ReceiverProfileTile(),
             _buildSentLetterButton(context),
             SizedBox(height: 10),
             _buildReceivedLetterButton(context),

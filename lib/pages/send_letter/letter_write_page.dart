@@ -1,7 +1,12 @@
+import 'package:daily_carbon/components/send_letter/receiver_profile_tile.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 
 class LetterWritePage extends StatelessWidget {
+  final ReceiverProfileTile receiver;
+
+  LetterWritePage({required this.receiver});
+
   final formKey = GlobalKey<FormState>();
 
   String title = '';
@@ -37,7 +42,7 @@ class LetterWritePage extends StatelessWidget {
             child: TextFormField(
               enabled: false,
               decoration: InputDecoration(
-                hintText: "수신자:  홍길동",
+                hintText: "수신자:  ${receiver.name}",
               ),
             ),
           ),
@@ -97,9 +102,9 @@ class LetterWritePage extends StatelessWidget {
             ),
           ),
           onTap: () {
-            showToastMessage();
             if (formKey.currentState!.validate()) {
               formKey.currentState!.save();
+              showToastMessage();
               // 서버로 Post 요청
               print(title);
               print(content);

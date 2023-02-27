@@ -3,7 +3,9 @@ import 'package:daily_carbon/pages/send_letter/letter_write_page.dart';
 import 'package:flutter/material.dart';
 
 class ReceiverInfoPage extends StatelessWidget {
-  const ReceiverInfoPage({Key? key}) : super(key: key);
+  final ReceiverProfileTile receiver;
+
+  const ReceiverInfoPage({required this.receiver});
 
   @override
   Widget build(BuildContext context) {
@@ -35,14 +37,17 @@ class ReceiverInfoPage extends StatelessWidget {
                     Navigator.push(
                       context,
                       MaterialPageRoute(
-                          builder: (context) => LetterWritePage()),
+                        builder: (context) => LetterWritePage(
+                          receiver: receiver,
+                        ),
+                      ),
                     );
                   },
                 ),
               ),
             ),
             SizedBox(height: 20),
-            ReceiverProfileTile(),
+            receiver,
           ],
         ),
       ),

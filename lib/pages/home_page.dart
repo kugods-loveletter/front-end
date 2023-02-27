@@ -6,7 +6,16 @@ class HomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Center(child: Text("Home Page")),
+      body: SafeArea(
+        child: Column(
+          children: [
+            Container(
+              decoration: BoxDecoration(color: Colors.lightGreen),
+              child: Text("등록하기"),
+            ),
+          ],
+        ),
+      ),
     );
   }
 }
