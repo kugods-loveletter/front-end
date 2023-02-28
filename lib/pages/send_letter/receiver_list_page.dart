@@ -20,6 +20,7 @@ class _ReceiverListPageState extends State<ReceiverListPage> {
           children: [
             _buildHeader(),
             _buildDropDownFilter(),
+            SizedBox(height: 20),
             Expanded(
               child: ListView.builder(
                 itemCount: filteredReceiverList.length,

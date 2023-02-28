@@ -22,6 +22,7 @@ class LetterWritePage extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
+                SizedBox(height: 10),
                 _letterSendButton(context),
                 _letterForm(context),
               ],
@@ -88,16 +89,15 @@ class LetterWritePage extends StatelessWidget {
         padding: const EdgeInsets.all(8.0),
         child: InkWell(
           child: Container(
-            width: 100,
+            width: 80,
             decoration: BoxDecoration(
-              color: Colors.lightGreen,
-              borderRadius: BorderRadius.circular(10),
+              color: Color(0xFFbdb3d1),
+              borderRadius: BorderRadius.circular(5),
             ),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Icon(Icons.send_rounded),
-                Text("보내기"),
+                Icon(Icons.send_rounded, size: 40),
               ],
             ),
           ),
