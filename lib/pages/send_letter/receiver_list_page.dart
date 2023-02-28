@@ -1,8 +1,16 @@
-import 'package:daily_carbon/components/send_letter/receiver_profile_tile.dart';
 import 'package:flutter/material.dart';
 
-class ReceiverListPage extends StatelessWidget {
-  const ReceiverListPage({Key? key}) : super(key: key);
+import '../../db/receivers.dart';
+
+class ReceiverListPage extends StatefulWidget {
+  @override
+  State<ReceiverListPage> createState() => _ReceiverListPageState();
+}
+
+class _ReceiverListPageState extends State<ReceiverListPage> {
+  List filteredReceiverList = receivers;
+
+  String _selectedCategory = 'All Categories';
 
   @override
   Widget build(BuildContext context) {
@@ -11,13 +19,14 @@ class ReceiverListPage extends StatelessWidget {
         child: Column(
           children: [
             _buildHeader(),
+            _buildDropDownFilter(),
+            SizedBox(height: 20),
             Expanded(
-              child: ListView(
-                children: [
-                  ReceiverProfileTile(),
-                  ReceiverProfileTile(),
-                  ReceiverProfileTile(),
-                ],
+              child: ListView.builder(
+                itemCount: filteredReceiverList.length,
+                itemBuilder: (context, index) {
+                  return filteredReceiverList[index];
+                },
               ),
             ),
           ],
@@ -47,5 +56,34 @@ class ReceiverListPage extends StatelessWidget {
         ),
       ],
     );
+  }
+
+  Widget _buildDropDownFilter() {
+    return DropdownButton<String>(
+      value: _selectedCategory,
+      items: [
+        DropdownMenuItem(
+            child: Text('All Categories'), value: 'All Categories'),
+        DropdownMenuItem(child: Text('depression'), value: 'depression'),
+        DropdownMenuItem(child: Text('poverty'), value: 'poverty'),
+        DropdownMenuItem(child: Text('Item 3'), value: 'Item 3'),
+      ],
+      onChanged: (value) {
+        setState(() {
+          _selectedCategory = value!;
+          filteredReceiverList = filterReceiver(_selectedCategory);
+        });
+      },
+    );
+  }
+
+  List filterReceiver(String category) {
+    if (category == 'All Categories') {
+      return receivers;
+    } else {
+      return receivers.where((receiver) {
+        return receiver.category == category;
+      }).toList();
+    }
   }
 }
