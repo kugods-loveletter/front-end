@@ -2,6 +2,18 @@ import 'package:daily_carbon/pages/send_letter/receiver_info_page.dart';
 import 'package:flutter/material.dart';
 
 class ReceiverProfileTile extends StatelessWidget {
+  final String name;
+  final String intro;
+  final String category;
+  final bool isClickable;
+
+  const ReceiverProfileTile({
+    required this.name,
+    required this.intro,
+    required this.category,
+    this.isClickable = true,
+  });
+
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -44,20 +56,33 @@ class ReceiverProfileTile extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.center,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text("이름", style: TextStyle(fontSize: 18)),
+                  Text(category, style: TextStyle(fontSize: 12)),
                   SizedBox(height: 5),
-                  Text("간단한 소개글", style: TextStyle(fontSize: 12)),
+                  Text(name, style: TextStyle(fontSize: 18)),
+                  SizedBox(height: 5),
+                  Text(intro, style: TextStyle(fontSize: 12)),
                 ],
               ),
             ],
           ),
         ),
-        onTap: () {
-          Navigator.push(
-            context,
-            MaterialPageRoute(builder: (context) => ReceiverInfoPage()),
-          );
-        },
+        onTap: isClickable
+            ? () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => ReceiverInfoPage(
+                      receiver: ReceiverProfileTile(
+                        name: name,
+                        intro: intro,
+                        category: category,
+                        isClickable: false,
+                      ),
+                    ),
+                  ),
+                );
+              }
+            : () {},
       ),
     );
   }
