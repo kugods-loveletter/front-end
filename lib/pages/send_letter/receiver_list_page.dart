@@ -9,8 +9,8 @@ class ReceiverListPage extends StatefulWidget {
 
 class _ReceiverListPageState extends State<ReceiverListPage> {
   List filteredReceiverList = receivers;
-
   String _selectedCategory = 'All Categories';
+  String postRequestResult = '';
 
   @override
   Widget build(BuildContext context) {
@@ -29,6 +29,7 @@ class _ReceiverListPageState extends State<ReceiverListPage> {
                 },
               ),
             ),
+            Text("ID: ${postRequestResult}"),
           ],
         ),
       ),
