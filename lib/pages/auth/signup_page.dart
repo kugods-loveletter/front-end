@@ -1,3 +1,6 @@
+import 'package:daily_carbon/api/auth.dart';
+import 'package:daily_carbon/pages/auth/login_page.dart';
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 
 import '../../components/auth/auth_text_field.dart';
@@ -6,9 +9,12 @@ class SignupPage extends StatelessWidget {
   final formKey = GlobalKey<FormState>();
 
   String id = '';
+  String email = '';
   String password = '';
   String confirmPassword = '';
 
+  TextEditingController idInputController = TextEditingController();
+  TextEditingController emailInputController = TextEditingController();
   TextEditingController passwordInputController = TextEditingController();
   TextEditingController confirmPasswordInputController =
       TextEditingController();
@@ -66,10 +72,22 @@ class SignupPage extends StatelessWidget {
             prefixIcon: Icon(Icons.person_outline),
             hintText: 'ID',
             onSaved: (val) => {id = val},
-            textEditingController: passwordInputController,
+            textEditingController: idInputController,
             validator: (val) {
               if (val.length < 1) {
                 return '아이디를 입력해주세요';
+              }
+            },
+          ),
+          SizedBox(height: 15),
+          AuthTextField(
+            prefixIcon: Icon(Icons.mail_outline_rounded),
+            hintText: 'Email',
+            onSaved: (val) => {email = val},
+            textEditingController: emailInputController,
+            validator: (val) {
+              if (val.length < 1) {
+                return '이메일을 입력해주세요';
               }
             },
           ),
@@ -93,10 +111,13 @@ class SignupPage extends StatelessWidget {
             onSaved: (val) => {confirmPassword = val},
             isPassword: true,
             validator: (val) {
+              /*
               if (passwordInputController.value.text !=
                   confirmPasswordInputController.value.text) {
                 return '패스워드가 일치하지 않습니다';
               }
+
+               */
             },
           ),
           SizedBox(height: 30),
@@ -117,10 +138,19 @@ class SignupPage extends StatelessWidget {
         ),
         child: Center(child: Text("Sign Up")),
       ),
-      onTap: () {
+      onTap: () async {
         if (formKey.currentState!.validate()) {
           formKey.currentState!.save();
+          print("Done");
           // 서버로 회원가입 Post 요청
+          Response response =
+              await signupPostRequest(id, email, password, confirmPassword);
+          if (response.data['status'] == 200) {
+            Navigator.pushReplacement(
+              context,
+              MaterialPageRoute(builder: (context) => LoginPage()),
+            );
+          }
         }
       },
     );

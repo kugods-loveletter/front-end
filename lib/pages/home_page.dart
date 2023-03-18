@@ -1,4 +1,6 @@
+import 'package:daily_carbon/api/user.dart';
 import 'package:daily_carbon/pages/add_receiver_page.dart';
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 
 class HomePage extends StatelessWidget {
@@ -27,6 +29,21 @@ class HomePage extends StatelessWidget {
                     builder: (context) => AddReceiverPage(),
                   ),
                 );
+              },
+            ),
+            InkWell(
+              child: Container(
+                width: 100,
+                height: 100,
+                decoration: BoxDecoration(
+                  color: Colors.lightGreen,
+                  borderRadius: BorderRadius.circular(20),
+                ),
+                child: Center(child: Text("테스트 버튼")),
+              ),
+              onTap: () async {
+                Response response = await getAllUserList();
+                print(response.data);
               },
             ),
           ],
