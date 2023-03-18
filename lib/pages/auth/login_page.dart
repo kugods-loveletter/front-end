@@ -1,6 +1,8 @@
+import 'package:daily_carbon/api/auth.dart';
 import 'package:daily_carbon/components/auth/auth_text_field.dart';
 import 'package:daily_carbon/pages/auth/signup_page.dart';
 import 'package:daily_carbon/pages/bottom_navigation.dart';
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 
 class LoginPage extends StatelessWidget {
@@ -98,15 +100,18 @@ class LoginPage extends StatelessWidget {
         ),
         child: Center(child: Text("Login")),
       ),
-      onTap: () {
+      onTap: () async {
         if (formKey.currentState!.validate()) {
           formKey.currentState!.save();
           // 서버로 로그인 Post 요청
+          Response response = await loginPostRequest(id, password);
           // 로그인 성공시에 메인 페이지로 이동
-          Navigator.pushReplacement(
-            context,
-            MaterialPageRoute(builder: (context) => BottomNavigation()),
-          );
+          if (response.data['status'] == 200) {
+            Navigator.pushReplacement(
+              context,
+              MaterialPageRoute(builder: (context) => BottomNavigation()),
+            );
+          }
         }
       },
     );
