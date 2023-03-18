@@ -1,4 +1,6 @@
 import 'package:daily_carbon/api/auth.dart';
+import 'package:daily_carbon/pages/auth/login_page.dart';
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 
 import '../../components/auth/auth_text_field.dart';
@@ -141,7 +143,14 @@ class SignupPage extends StatelessWidget {
           formKey.currentState!.save();
           print("Done");
           // 서버로 회원가입 Post 요청
-          await signupPostRequest(id, email, password, confirmPassword);
+          Response response =
+              await signupPostRequest(id, email, password, confirmPassword);
+          if (response.data['status'] == 200) {
+            Navigator.pushReplacement(
+              context,
+              MaterialPageRoute(builder: (context) => LoginPage()),
+            );
+          }
         }
       },
     );
