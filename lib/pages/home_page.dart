@@ -1,4 +1,4 @@
-import 'package:daily_carbon/api/user.dart';
+import 'package:daily_carbon/api/posting.dart';
 import 'package:daily_carbon/pages/add_receiver_page.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
@@ -42,7 +42,7 @@ class HomePage extends StatelessWidget {
                 child: Center(child: Text("테스트 버튼")),
               ),
               onTap: () async {
-                Response response = await getAllUserList();
+                Response response = await getAllPostings();
                 print(response.data);
               },
             ),

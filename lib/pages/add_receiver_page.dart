@@ -1,3 +1,5 @@
+import 'package:daily_carbon/api/posting.dart';
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 
 class AddReceiverPage extends StatefulWidget {
@@ -10,7 +12,7 @@ class _AddReceiverPageState extends State<AddReceiverPage> {
 
   String category = 'poverty';
   String name = '';
-  String intro = '';
+  String body = '';
 
   final List<String> _dropdownValues = [
     'depression',
@@ -139,7 +141,7 @@ class _AddReceiverPageState extends State<AddReceiverPage> {
                     borderSide: BorderSide(color: Colors.red),
                   ),
                 ),
-                onSaved: (val) => {intro = val!},
+                onSaved: (val) => {body = val!},
                 validator: (val) {
                   if (val!.length < 1) {
                     return '소개글을 입력해주세요';
@@ -164,12 +166,15 @@ class _AddReceiverPageState extends State<AddReceiverPage> {
         ),
         child: Center(child: Text("등록")),
       ),
-      onTap: () {
+      onTap: () async {
         if (formKey.currentState!.validate()) {
           formKey.currentState!.save();
-          Navigator.pop(
-            context,
-          );
+          Response response = await postPosting(name, body);
+          if (response.data['status'] == 200) {
+            Navigator.pop(
+              context,
+            );
+          }
         }
       },
     );
