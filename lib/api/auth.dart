@@ -23,3 +23,10 @@ Future<Response> loginPostRequest(id, pw) async {
   });
   return response;
 }
+
+Future<Response> logoutGetRequest() async {
+  Response response;
+  var dio = Dio();
+  response = await dio.get('$url/auth/logout');
+  return response;
+}

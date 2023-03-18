@@ -8,3 +8,17 @@ Future<Response> getAllUserList() async {
   response = await dio.get('$url/api/user');
   return response;
 }
+
+Future<Response> getOneUser(userId) async {
+  Response response;
+  var dio = Dio();
+  response = await dio.get('$url/api/user/$userId');
+  return response;
+}
+
+Future<Response> getUserReceivedLetters(userId) async {
+  Response response;
+  var dio = Dio();
+  response = await dio.get('$url/api/user/$userId/received');
+  return response;
+}
