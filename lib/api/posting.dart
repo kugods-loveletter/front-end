@@ -6,6 +6,7 @@ String url = 'http://10.0.2.2:4000';
 Future<Response> getAllPostings() async {
   Response response;
   response = await dio.get('$url/api/posting');
+
   return response;
 }
 

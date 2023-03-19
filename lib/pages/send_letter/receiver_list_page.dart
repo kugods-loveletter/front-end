@@ -21,15 +21,25 @@ class _ReceiverListPageState extends State<ReceiverListPage> {
             _buildHeader(),
             _buildDropDownFilter(),
             SizedBox(height: 20),
-            Expanded(
-              child: ListView.builder(
-                itemCount: filteredReceiverList.length,
-                itemBuilder: (context, index) {
-                  return filteredReceiverList[index];
-                },
-              ),
+            FutureBuilder<List>(
+              future: loadReceivers(),
+              builder: (BuildContext context, AsyncSnapshot<List> snapshot) {
+                if (snapshot.hasData) {
+                  return Expanded(
+                    child: ListView.builder(
+                      itemCount: snapshot.data?.length,
+                      itemBuilder: (BuildContext context, int index) {
+                        return filteredReceiverList[index];
+                      },
+                    ),
+                  );
+                } else {
+                  return Center(
+                    child: CircularProgressIndicator(),
+                  );
+                }
+              },
             ),
-            Text("ID: ${postRequestResult}"),
           ],
         ),
       ),
