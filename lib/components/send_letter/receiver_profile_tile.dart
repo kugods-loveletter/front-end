@@ -2,12 +2,14 @@ import 'package:daily_carbon/pages/send_letter/receiver_info_page.dart';
 import 'package:flutter/material.dart';
 
 class ReceiverProfileTile extends StatelessWidget {
+  final String id;
   final String name;
   final String intro;
   final String category;
   final bool isClickable;
 
   const ReceiverProfileTile({
+    required this.id,
     required this.name,
     required this.intro,
     required this.category,
@@ -73,6 +75,7 @@ class ReceiverProfileTile extends StatelessWidget {
                   MaterialPageRoute(
                     builder: (context) => ReceiverInfoPage(
                       receiver: ReceiverProfileTile(
+                        id: id,
                         name: name,
                         intro: intro,
                         category: category,

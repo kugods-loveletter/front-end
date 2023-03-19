@@ -29,7 +29,7 @@ class _ReceiverListPageState extends State<ReceiverListPage> {
                     child: ListView.builder(
                       itemCount: snapshot.data?.length,
                       itemBuilder: (BuildContext context, int index) {
-                        return filteredReceiverList[index];
+                        return snapshot.data![index];
                       },
                     ),
                   );
