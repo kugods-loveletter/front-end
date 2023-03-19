@@ -1,8 +1,9 @@
 import 'package:cookie_jar/cookie_jar.dart';
+import 'package:daily_carbon/config/url.dart';
 import 'package:dio/dio.dart';
 import 'package:dio_cookie_manager/dio_cookie_manager.dart';
 
-String url = 'http://10.0.2.2:4000';
+String url = serverUrl;
 
 final dio = Dio();
 final cookieJar = CookieJar();
@@ -33,5 +34,11 @@ Future<Response> loginPostRequest(id, pw) async {
 Future<Response> logoutGetRequest() async {
   Response response;
   response = await dio.get('$url/auth/logout');
+  return response;
+}
+
+Future<Response> getSessionData() async {
+  Response response;
+  response = await dio.get('$url/auth/session');
   return response;
 }

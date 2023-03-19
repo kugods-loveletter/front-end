@@ -1,7 +1,8 @@
 import 'package:daily_carbon/api/auth.dart';
+import 'package:daily_carbon/config/url.dart';
 import 'package:dio/dio.dart';
 
-String url = 'http://10.0.2.2:4000';
+String url = serverUrl;
 
 Future<Response> getOneLetter(letterId) async {
   Response response;
