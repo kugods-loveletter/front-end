@@ -1,11 +1,12 @@
-import 'package:daily_carbon/components/send_letter/receiver_profile_tile.dart';
+import 'package:daily_carbon/api/posting.dart';
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 
 class LetterWritePage extends StatelessWidget {
-  final ReceiverProfileTile receiver;
+  final String postId;
 
-  LetterWritePage({required this.receiver});
+  LetterWritePage({required this.postId});
 
   final formKey = GlobalKey<FormState>();
 
@@ -38,14 +39,26 @@ class LetterWritePage extends StatelessWidget {
       key: formKey,
       child: Column(
         children: [
-          Container(
-            width: MediaQuery.of(context).size.width * 0.9,
-            child: TextFormField(
-              enabled: false,
-              decoration: InputDecoration(
-                hintText: "수신자:  ${receiver.name}",
-              ),
-            ),
+          FutureBuilder<Response>(
+            future: getPosting(postId),
+            builder: (BuildContext context, AsyncSnapshot<Response> snapshot) {
+              if (snapshot.hasData) {
+                final post = snapshot.data?.data['data'][0];
+                return Container(
+                  width: MediaQuery.of(context).size.width * 0.9,
+                  child: TextFormField(
+                    enabled: false,
+                    decoration: InputDecoration(
+                      hintText: "수신자:  ${post['title']}",
+                    ),
+                  ),
+                );
+              } else {
+                return Center(
+                  child: CircularProgressIndicator(),
+                );
+              }
+            },
           ),
           Container(
             width: MediaQuery.of(context).size.width * 0.9,
@@ -101,17 +114,18 @@ class LetterWritePage extends StatelessWidget {
               ],
             ),
           ),
-          onTap: () {
+          onTap: () async {
             if (formKey.currentState!.validate()) {
               formKey.currentState!.save();
-              showToastMessage();
               // 서버로 Post 요청
-              print(title);
-              print(content);
-              // 페이지 이동
-              Navigator.pop(
-                context,
-              );
+              Response response = await postReplyLetter(postId, title, content);
+              if (response.data['status'] == 200) {
+                showToastMessage();
+                // 페이지 이동
+                Navigator.pop(
+                  context,
+                );
+              }
             }
           },
         ),

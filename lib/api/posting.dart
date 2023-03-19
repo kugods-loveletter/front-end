@@ -49,6 +49,15 @@ Future<Response> getReplyLetterList(postingId) async {
   return response;
 }
 
+Future<Response> postReplyLetter(postingId, title, body) async {
+  Response response;
+  response = await dio.post('$url/api/posting/$postingId/replyLetter', data: {
+    "title": title,
+    "body": body,
+  });
+  return response;
+}
+
 Future<Response> increasePostingLikeNumber(postingId) async {
   Response response;
   response = await dio.patch('$url/api/posting/$postingId/like');

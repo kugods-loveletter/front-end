@@ -1,11 +1,13 @@
+import 'package:daily_carbon/api/posting.dart';
 import 'package:daily_carbon/components/send_letter/receiver_profile_tile.dart';
 import 'package:daily_carbon/pages/send_letter/letter_write_page.dart';
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 
 class ReceiverInfoPage extends StatelessWidget {
-  final ReceiverProfileTile receiver;
+  final String postId;
 
-  const ReceiverInfoPage({required this.receiver});
+  const ReceiverInfoPage({required this.postId});
 
   @override
   Widget build(BuildContext context) {
@@ -38,7 +40,7 @@ class ReceiverInfoPage extends StatelessWidget {
                       context,
                       MaterialPageRoute(
                         builder: (context) => LetterWritePage(
-                          receiver: receiver,
+                          postId: postId,
                         ),
                       ),
                     );
@@ -47,7 +49,26 @@ class ReceiverInfoPage extends StatelessWidget {
               ),
             ),
             SizedBox(height: 20),
-            receiver,
+            FutureBuilder<Response>(
+              future: getPosting(postId),
+              builder:
+                  (BuildContext context, AsyncSnapshot<Response> snapshot) {
+                if (snapshot.hasData) {
+                  final post = snapshot.data?.data['data'][0];
+                  return ReceiverProfileTile(
+                    id: postId,
+                    name: post['title'],
+                    intro: post['body'],
+                    category: "depression",
+                    isClickable: false,
+                  );
+                } else {
+                  return Center(
+                    child: CircularProgressIndicator(),
+                  );
+                }
+              },
+            ),
           ],
         ),
       ),

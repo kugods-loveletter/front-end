@@ -74,13 +74,7 @@ class ReceiverProfileTile extends StatelessWidget {
                   context,
                   MaterialPageRoute(
                     builder: (context) => ReceiverInfoPage(
-                      receiver: ReceiverProfileTile(
-                        id: id,
-                        name: name,
-                        intro: intro,
-                        category: category,
-                        isClickable: false,
-                      ),
+                      postId: id,
                     ),
                   ),
                 );
