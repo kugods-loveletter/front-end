@@ -21,15 +21,25 @@ class _ReceiverListPageState extends State<ReceiverListPage> {
             _buildHeader(),
             _buildDropDownFilter(),
             SizedBox(height: 20),
-            Expanded(
-              child: ListView.builder(
-                itemCount: filteredReceiverList.length,
-                itemBuilder: (context, index) {
-                  return filteredReceiverList[index];
-                },
-              ),
+            FutureBuilder<List>(
+              future: loadReceivers(),
+              builder: (BuildContext context, AsyncSnapshot<List> snapshot) {
+                if (snapshot.hasData) {
+                  return Expanded(
+                    child: ListView.builder(
+                      itemCount: snapshot.data?.length,
+                      itemBuilder: (BuildContext context, int index) {
+                        return snapshot.data![index];
+                      },
+                    ),
+                  );
+                } else {
+                  return Center(
+                    child: CircularProgressIndicator(),
+                  );
+                }
+              },
             ),
-            Text("ID: ${postRequestResult}"),
           ],
         ),
       ),
@@ -43,7 +53,7 @@ class _ReceiverListPageState extends State<ReceiverListPage> {
         Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Text("따뜻한 편지로 주변의 이웃을 응원해주세요!"),
+            Text("Please encourage your neighbors with a warm letter!"),
           ],
         ),
         Padding(
@@ -51,7 +61,7 @@ class _ReceiverListPageState extends State<ReceiverListPage> {
           child: Row(
             mainAxisAlignment: MainAxisAlignment.start,
             children: [
-              Text("이웃 목록"),
+              Text("Receivers list"),
             ],
           ),
         ),
@@ -67,7 +77,8 @@ class _ReceiverListPageState extends State<ReceiverListPage> {
             child: Text('All Categories'), value: 'All Categories'),
         DropdownMenuItem(child: Text('depression'), value: 'depression'),
         DropdownMenuItem(child: Text('poverty'), value: 'poverty'),
-        DropdownMenuItem(child: Text('Item 3'), value: 'Item 3'),
+        DropdownMenuItem(
+            child: Text('school bullying'), value: 'school bullying'),
       ],
       onChanged: (value) {
         setState(() {

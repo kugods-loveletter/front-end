@@ -2,12 +2,16 @@ import 'package:daily_carbon/api/posting.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 
-class AddReceiverPage extends StatefulWidget {
+class ReceiverInfoEditPage extends StatefulWidget {
+  final String postId;
+
+  const ReceiverInfoEditPage(this.postId);
+
   @override
-  State<AddReceiverPage> createState() => _AddReceiverPageState();
+  State<ReceiverInfoEditPage> createState() => _ReceiverInfoEditPageState();
 }
 
-class _AddReceiverPageState extends State<AddReceiverPage> {
+class _ReceiverInfoEditPageState extends State<ReceiverInfoEditPage> {
   final formKey = GlobalKey<FormState>();
 
   String category = 'poverty';
@@ -31,12 +35,26 @@ class _AddReceiverPageState extends State<AddReceiverPage> {
               Align(
                 child: Padding(
                   padding: const EdgeInsets.only(left: 16),
-                  child: Text("Add as receiver"),
+                  child: Text("수신자 등록"),
                 ),
                 alignment: Alignment.topLeft,
               ),
               SizedBox(height: 20),
-              _addReceiverForm(context),
+              FutureBuilder<Response>(
+                future: getPosting(widget.postId),
+                builder:
+                    (BuildContext context, AsyncSnapshot<Response> snapshot) {
+                  if (snapshot.hasData) {
+                    final post = snapshot.data?.data['data'][0];
+                    return _addReceiverForm(
+                        context, post['category'], post['title'], post['body']);
+                  } else {
+                    return Center(
+                      child: CircularProgressIndicator(),
+                    );
+                  }
+                },
+              ),
               SizedBox(height: 20),
               _receiverAddButton(context),
             ],
@@ -46,7 +64,11 @@ class _AddReceiverPageState extends State<AddReceiverPage> {
     );
   }
 
-  Widget _addReceiverForm(BuildContext context) {
+  Widget _addReceiverForm(BuildContext context, category, title, content) {
+    TextEditingController _titleController = TextEditingController(text: title);
+    TextEditingController _contentController =
+        TextEditingController(text: content);
+
     return Container(
       width: double.infinity,
       child: Form(
@@ -61,7 +83,7 @@ class _AddReceiverPageState extends State<AddReceiverPage> {
                   labelText: 'Category',
                   border: OutlineInputBorder(),
                 ),
-                value: 'depression',
+                value: category,
                 onChanged: (newValue) {
                   setState(() {
                     category = newValue!;
@@ -85,6 +107,10 @@ class _AddReceiverPageState extends State<AddReceiverPage> {
             Container(
               width: MediaQuery.of(context).size.width * 0.9,
               child: TextFormField(
+                controller: _titleController,
+                onEditingComplete: () {
+                  _titleController.text = _titleController.value.text;
+                },
                 decoration: InputDecoration(
                   labelText: 'Title',
                   floatingLabelBehavior: FloatingLabelBehavior.always,
@@ -121,6 +147,10 @@ class _AddReceiverPageState extends State<AddReceiverPage> {
               ),
               child: TextFormField(
                 maxLines: 20,
+                controller: _contentController,
+                onEditingComplete: () {
+                  _contentController.text = _contentController.value.text;
+                },
                 decoration: InputDecoration(
                   labelText: 'Introduction',
                   floatingLabelBehavior: FloatingLabelBehavior.always,
@@ -164,12 +194,12 @@ class _AddReceiverPageState extends State<AddReceiverPage> {
           borderRadius: BorderRadius.all(Radius.circular(10)),
           color: Color.fromRGBO(243, 193, 193, 1.0),
         ),
-        child: Center(child: Text("Add as receiver")),
+        child: Center(child: Text("Edit")),
       ),
       onTap: () async {
         if (formKey.currentState!.validate()) {
           formKey.currentState!.save();
-          Response response = await postPosting(category, name, body);
+          Response response = await editPosting(widget.postId, name, body);
           if (response.data['status'] == 200) {
             Navigator.pop(
               context,

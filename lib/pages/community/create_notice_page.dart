@@ -1,13 +1,9 @@
-import 'package:daily_carbon/api/posting.dart';
+import 'package:daily_carbon/api/notice.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 
-class LetterWritePage extends StatelessWidget {
-  final String postId;
-
-  LetterWritePage({required this.postId});
-
+class CreateNoticePage extends StatelessWidget {
   final formKey = GlobalKey<FormState>();
 
   String title = '';
@@ -24,8 +20,8 @@ class LetterWritePage extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 SizedBox(height: 10),
-                _letterSendButton(context),
-                _letterForm(context),
+                _noticePostButton(context),
+                _noticeForm(context),
               ],
             ),
           ),
@@ -34,32 +30,11 @@ class LetterWritePage extends StatelessWidget {
     );
   }
 
-  Widget _letterForm(BuildContext context) {
+  Widget _noticeForm(BuildContext context) {
     return Form(
       key: formKey,
       child: Column(
         children: [
-          FutureBuilder<Response>(
-            future: getPosting(postId),
-            builder: (BuildContext context, AsyncSnapshot<Response> snapshot) {
-              if (snapshot.hasData) {
-                final post = snapshot.data?.data['data'][0];
-                return Container(
-                  width: MediaQuery.of(context).size.width * 0.9,
-                  child: TextFormField(
-                    enabled: false,
-                    decoration: InputDecoration(
-                      hintText: "수신자: Writer of ${post['title']}",
-                    ),
-                  ),
-                );
-              } else {
-                return Center(
-                  child: CircularProgressIndicator(),
-                );
-              }
-            },
-          ),
           Container(
             width: MediaQuery.of(context).size.width * 0.9,
             child: TextFormField(
@@ -95,14 +70,14 @@ class LetterWritePage extends StatelessWidget {
     );
   }
 
-  Widget _letterSendButton(BuildContext context) {
+  Widget _noticePostButton(BuildContext context) {
     return Align(
       alignment: Alignment.centerRight,
       child: Padding(
         padding: const EdgeInsets.all(8.0),
         child: InkWell(
           child: Container(
-            width: 80,
+            width: 120,
             height: 30,
             decoration: BoxDecoration(
               color: Color.fromRGBO(243, 193, 193, 1.0),
@@ -111,9 +86,9 @@ class LetterWritePage extends StatelessWidget {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Icon(Icons.send_rounded, size: 25),
+                Icon(Icons.post_add_rounded, size: 25),
                 SizedBox(width: 5),
-                Text("Send"),
+                Text("Post Notice"),
               ],
             ),
           ),
@@ -121,7 +96,7 @@ class LetterWritePage extends StatelessWidget {
             if (formKey.currentState!.validate()) {
               formKey.currentState!.save();
               // 서버로 Post 요청
-              Response response = await postReplyLetter(postId, title, content);
+              Response response = await PostNotice(title, content);
               if (response.data['status'] == 200) {
                 showToastMessage();
                 // 페이지 이동
@@ -138,7 +113,7 @@ class LetterWritePage extends StatelessWidget {
 
   void showToastMessage() {
     Fluttertoast.showToast(
-      msg: "Your letter has been successfully sent.",
+      msg: "Notice posted successfully",
     );
   }
 }

@@ -1,12 +1,12 @@
-import 'package:daily_carbon/api/posting.dart';
+import 'package:daily_carbon/api/letter.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 
-class LetterWritePage extends StatelessWidget {
-  final String postId;
+class SendReplyPage extends StatelessWidget {
+  final String letterId;
 
-  LetterWritePage({required this.postId});
+  SendReplyPage({required this.letterId});
 
   final formKey = GlobalKey<FormState>();
 
@@ -40,16 +40,16 @@ class LetterWritePage extends StatelessWidget {
       child: Column(
         children: [
           FutureBuilder<Response>(
-            future: getPosting(postId),
+            future: getOneLetter(letterId),
             builder: (BuildContext context, AsyncSnapshot<Response> snapshot) {
               if (snapshot.hasData) {
-                final post = snapshot.data?.data['data'][0];
+                final letter = snapshot.data?.data['data'];
                 return Container(
                   width: MediaQuery.of(context).size.width * 0.9,
                   child: TextFormField(
                     enabled: false,
                     decoration: InputDecoration(
-                      hintText: "수신자: Writer of ${post['title']}",
+                      hintText: "수신자: Writer of ${letter['title']}",
                     ),
                   ),
                 );
@@ -103,7 +103,6 @@ class LetterWritePage extends StatelessWidget {
         child: InkWell(
           child: Container(
             width: 80,
-            height: 30,
             decoration: BoxDecoration(
               color: Color.fromRGBO(243, 193, 193, 1.0),
               borderRadius: BorderRadius.circular(5),
@@ -111,9 +110,7 @@ class LetterWritePage extends StatelessWidget {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Icon(Icons.send_rounded, size: 25),
-                SizedBox(width: 5),
-                Text("Send"),
+                Icon(Icons.send_rounded, size: 40),
               ],
             ),
           ),
@@ -121,7 +118,7 @@ class LetterWritePage extends StatelessWidget {
             if (formKey.currentState!.validate()) {
               formKey.currentState!.save();
               // 서버로 Post 요청
-              Response response = await postReplyLetter(postId, title, content);
+              Response response = await postLetter(letterId, title, content);
               if (response.data['status'] == 200) {
                 showToastMessage();
                 // 페이지 이동

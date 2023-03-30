@@ -2,12 +2,14 @@ import 'package:daily_carbon/pages/send_letter/receiver_info_page.dart';
 import 'package:flutter/material.dart';
 
 class ReceiverProfileTile extends StatelessWidget {
+  final String id;
   final String name;
   final String intro;
   final String category;
   final bool isClickable;
 
   const ReceiverProfileTile({
+    required this.id,
     required this.name,
     required this.intro,
     required this.category,
@@ -58,9 +60,25 @@ class ReceiverProfileTile extends StatelessWidget {
                 children: [
                   Text(category, style: TextStyle(fontSize: 12)),
                   SizedBox(height: 5),
-                  Text(name, style: TextStyle(fontSize: 18)),
+                  Container(
+                    width: 230,
+                    child: Text(
+                      name,
+                      style: TextStyle(fontSize: 18),
+                      overflow: TextOverflow.ellipsis,
+                      maxLines: 1,
+                    ),
+                  ),
                   SizedBox(height: 5),
-                  Text(intro, style: TextStyle(fontSize: 12)),
+                  Container(
+                    width: 230,
+                    child: Text(
+                      intro,
+                      style: TextStyle(fontSize: 12),
+                      overflow: TextOverflow.ellipsis,
+                      maxLines: 1,
+                    ),
+                  ),
                 ],
               ),
             ],
@@ -72,12 +90,7 @@ class ReceiverProfileTile extends StatelessWidget {
                   context,
                   MaterialPageRoute(
                     builder: (context) => ReceiverInfoPage(
-                      receiver: ReceiverProfileTile(
-                        name: name,
-                        intro: intro,
-                        category: category,
-                        isClickable: false,
-                      ),
+                      postId: id,
                     ),
                   ),
                 );

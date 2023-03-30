@@ -26,9 +26,9 @@ class _BottomNavigationState extends State<BottomNavigation> {
         return HomePage();
       case 1:
         return ReceiverListPage();
-      case 2:
-        return UserInfoPage();
       case 3:
+        return UserInfoPage();
+      case 2:
         return CommunityMainPage();
       default:
         return Container();
@@ -51,12 +51,12 @@ class _BottomNavigationState extends State<BottomNavigation> {
             label: "Receivers",
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.person_outline),
-            label: "My Profile",
-          ),
-          BottomNavigationBarItem(
             icon: Icon(Icons.chat),
             label: "Community",
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.person_outline),
+            label: "My Profile",
           ),
         ],
         currentIndex: _selectedIndex,
