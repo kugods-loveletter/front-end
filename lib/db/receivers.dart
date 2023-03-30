@@ -8,7 +8,7 @@ Future<List> loadReceivers() async {
     final String id = post['_id'];
     final String title = post['title'];
     final String body = post['body'];
-    final String category = "depression";
+    final String category = post['category'] ?? "No Category Found";
     tmp.add(ReceiverProfileTile(
         id: id, name: title, intro: body, category: category));
   });

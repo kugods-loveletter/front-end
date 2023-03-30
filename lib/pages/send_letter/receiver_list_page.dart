@@ -53,7 +53,7 @@ class _ReceiverListPageState extends State<ReceiverListPage> {
         Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Text("따뜻한 편지로 주변의 이웃을 응원해주세요!"),
+            Text("Please encourage your neighbors with a warm letter!"),
           ],
         ),
         Padding(
@@ -61,7 +61,7 @@ class _ReceiverListPageState extends State<ReceiverListPage> {
           child: Row(
             mainAxisAlignment: MainAxisAlignment.start,
             children: [
-              Text("이웃 목록"),
+              Text("Receivers list"),
             ],
           ),
         ),
@@ -77,7 +77,8 @@ class _ReceiverListPageState extends State<ReceiverListPage> {
             child: Text('All Categories'), value: 'All Categories'),
         DropdownMenuItem(child: Text('depression'), value: 'depression'),
         DropdownMenuItem(child: Text('poverty'), value: 'poverty'),
-        DropdownMenuItem(child: Text('Item 3'), value: 'Item 3'),
+        DropdownMenuItem(
+            child: Text('school bullying'), value: 'school bullying'),
       ],
       onChanged: (value) {
         setState(() {

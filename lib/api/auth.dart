@@ -37,8 +37,9 @@ Future<Response> logoutGetRequest() async {
   return response;
 }
 
-Future<Response> getSessionData() async {
+Future<String> getSessionUserId() async {
   Response response;
-  response = await dio.get('$url/auth/session');
-  return response;
+  response = await dio.get('$url/auth/loggedInUser');
+  String id = response.data['data']['_id'];
+  return id;
 }

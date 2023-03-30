@@ -11,11 +11,12 @@ Future<Response> getAllPostings() async {
   return response;
 }
 
-Future<Response> postPosting(title, body) async {
+Future<Response> postPosting(category, title, body) async {
   Response response;
   response = await dio.post(
     '$url/api/posting',
     data: {
+      "category": category,
       "title": title,
       "body": body,
     },
